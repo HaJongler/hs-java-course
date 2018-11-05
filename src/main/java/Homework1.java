@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.io.*;
 
-public class Homework2 {
+public class Homework1 {
 
     private static int[] readFile() {
         try {
@@ -29,7 +29,7 @@ public class Homework2 {
 
     public static void main(String[] args) {
         int[] vals = readFile();
-        long mult = vals[0] * vals[1];
+        int mult = vals[0] * vals[1];
         writeFile(mult);
     }
 }

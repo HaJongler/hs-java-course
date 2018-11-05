@@ -1,7 +1,7 @@
-public class Task_1 {
+public class Task1 {
         
     private static int give_me_one() {
-        return "1";
+        return 1;
     }
     
     public static void Main(String[] args) {
