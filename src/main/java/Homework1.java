@@ -7,7 +7,7 @@ public class Homework2 {
         try {
             Scanner sc = new Scanner(new File("input.txt"));
             int a = sc.nextInt();
-            int b = sc.nextInt()
+            int b = sc.nextInt();
             return new int[] { a, b };
         } catch (FileNotFoundException ex) {
             return null;
@@ -19,7 +19,7 @@ public class Homework2 {
             Writer writer = new BufferedWriter(
                     new OutputStreamWriter(
                         new FileOutputStream("output.txt"), "ascii"));
-            writer.write(new Integer(number).toString();)
+            writer.write(new Integer(number).toString());
             writer.close();
           } catch (IOException ex) {
               
@@ -28,7 +28,7 @@ public class Homework2 {
 
     
     public static void main(String[] args) {
-        int[] vals = readFile()
+        int[] vals = readFile();
         long mult = vals[0] * vals[1];
         writeFile(mult);
     }
