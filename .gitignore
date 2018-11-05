@@ -1,2 +1,11 @@
-.idea/*
+# Compiles class files with bytecode
 *.class
+
+# Packaged archive with class files
+*.jar
+
+# Maven
+target
+
+# IntelliJ IDEA
+.idea/*
