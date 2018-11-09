@@ -9,3 +9,7 @@ target
 
 # IntelliJ IDEA
 .idea/*
+
+# Old files
+src/main/old/
+src/test/old/
