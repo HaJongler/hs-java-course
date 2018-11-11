@@ -39,6 +39,8 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(Object key) {
+
+        if (key == null) return null;
         int key_hash = simpleHash(key);
 
         if (buckets[key_hash] == null) return null;
@@ -54,6 +56,8 @@ public class MyHashMap<K, V> implements Map<K, V> {
     public V put(K key, V value) {
         Element element = new Element();
         element.set(key, value);
+
+        if (key == null) return null;
 
         int key_hash = simpleHash(key);
 

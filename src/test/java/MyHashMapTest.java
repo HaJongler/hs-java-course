@@ -89,11 +89,26 @@ public class MyHashMapTest extends TestCase {
     }
 
     @Test
+    public void testPutNullKey() {
+        MyHashMap<Integer, Integer> map = new MyHashMap<>();
+        map.put(null, 5);
+        assertEquals(null, map.get(null));
+    }
+
+    @Test
+    public void testPutNullValue() {
+        MyHashMap<Integer, Integer> map = new MyHashMap<>();
+        map.put(5, null);
+        assertEquals(null, map.get(5));
+    }
+
+    @Test
     public void testGetInteger() {
         MyHashMap<Integer, Integer> map = new MyHashMap<>();
         map.put(5, 5);
         assertEquals( (Integer) 5, map.get(5));
     }
+
 
     @Test
     public void testGetString() {
