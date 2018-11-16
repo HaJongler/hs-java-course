@@ -1,18 +1,18 @@
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.LinkedList;
 
 public class ATM {
 
-    private List<Container> containers;
-    private LogList<Integer> balanceLog = new LogList<>(0);
+    private Integer id;
+    private Integer[] bills;
+    private Integer[] stocks;
+    private LinkedList<Container> containers = new LinkedList<>();
+    public LinkedList<Bank> observers = new LinkedList<>();
 
-    public ATM(String[] containers) {
-        this.containers = Arrays.stream(containers)
-                .map(Integer::parseInt)
-                .sorted((c1, c2) -> c2 - c1)
-                .map(Container::new)
-                .collect(Collectors.toList());
+    public ATM(Integer[] bills, Integer[] stocks) {
+        for (int i = 0; i < bills.length; i++) {
+            this.containers.add(new Container(bills[i], stocks[i]));
+            this.containers.get(i).registerObserver(this);
+        }
         /**
          * Set the next container foreach container.
          */
@@ -21,18 +21,16 @@ public class ATM {
         }
     }
 
-    public Integer getBalance() {
-        Iterator<Integer> iterator = this.balanceLog.getIterator();
-        Integer currentBalance = 0;
-        while (iterator.hasNext()) {
-            currentBalance = iterator.next();
-        }
-        return currentBalance;
+    public Integer getId() {
+        return this.id;
     }
 
-    public void deposit(Integer amount) {
-        Integer currentBalance = getBalance();
-        this.balanceLog.addLog(currentBalance + amount);
+    public Integer getBalance() {
+        Integer balance = 0;
+        for (Container c : containers) {
+            balance += c.getBalance();
+        }
+        return balance;
     }
 
     public void withdrawl(Integer amount) {
@@ -41,8 +39,25 @@ public class ATM {
             System.out.println("Can not withdraw " + amount.toString() +
                     " from ATM with balance " + currentBalance.toString());
         } else {
-            Integer actualWithdrawl = this.containers.get(0).handle(amount);
-            this.balanceLog.addLog(currentBalance - actualWithdrawl);
+            this.containers.get(0).handle(amount);
         }
+    }
+
+    public ATM clone() {
+        return new ATM(this.bills, this.stocks);
+    }
+
+    public void registerObserver(Bank b) {
+        this.observers.add(b);
+    }
+
+    public void notifyObservers(Integer con) {
+        for (Bank b : observers) {
+            b.update(this, con);
+        }
+    }
+
+    public void update(Container c) {
+        notifyObservers(c.getCash());
     }
 }
